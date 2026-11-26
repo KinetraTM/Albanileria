@@ -1,4 +1,4 @@
-import '../style/UI/button.css';
+import '../style/UI/components.css';
 export default function Button({ children, variant = 'primary', onClick, href, type = 'button' }) {
   const cls = `btn btn--${variant}`;
   if (href) return <a href={href} className={cls}>{children}</a>;

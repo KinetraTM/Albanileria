@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import { scrollToSection } from "../util/scroll";
 import "../style/UI/components.css";
 
@@ -30,7 +31,7 @@ export default function Navbar() {
           onClick={() => setOpen(!open)}
           aria-label="Menú"
         >
-          ☰
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
         <ul className={`navbar__links ${open ? "navbar__links--open" : ""}`}>
           <li>

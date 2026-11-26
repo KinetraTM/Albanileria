@@ -13,17 +13,31 @@ import { testimonials } from "../data/testimonials";
 import { contact } from "../data/contact";
 import { site } from "../data/site";
 import { formatPhone } from "../util/format";
-import { useEffect } from 'react';
+import { motion } from "motion/react";
+import { staggerContainer } from "../util/motion";
+import {
+  Building2,
+  Hammer,
+  Ruler,
+  Paintbrush,
+  Layers,
+  Trees,
+  Phone,
+  Mail,
+  MapPin,
+  MessageCircle,
+} from "lucide-react";
+
+const serviceIcons = {
+  1: Building2,
+  2: Hammer,
+  3: Ruler,
+  4: Paintbrush,
+  5: Layers,
+  6: Trees,
+};
 
 export default function Home() {
-  useEffect(() => {
-    const els = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
   return (
     <>
       <Header />
@@ -38,7 +52,7 @@ export default function Home() {
             textAlign: "center",
             maxWidth: 800,
             margin: "0 auto",
-            color: "var(--color-muted)",
+            color: "var(--text-muted)",
           }}
         >
           {site.about}
@@ -49,7 +63,13 @@ export default function Home() {
         title="Obras realizadas"
         subtitle="Algunos de nuestros trabajos"
       >
-        <div className="grid grid--3">
+        <motion.div
+          className="grid grid--3"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+        >
           {works.map((w) => (
             <Card
               key={w.id}
@@ -59,18 +79,29 @@ export default function Home() {
               meta={`${w.category} · ${w.date}`}
             />
           ))}
-        </div>
+        </motion.div>
       </Section>
       <Section id="servicios" title="Servicios" subtitle="Lo que ofrecemos">
-        <div className="grid grid--3">
-          {services.map((s) => (
-            <Card key={s.id} title={s.title} text={s.description}>
-              <div className="service-card">
-                <span className="service-card__icon">{s.icon}</span>
-              </div>
-            </Card>
-          ))}
-        </div>
+        <motion.div
+          className="grid grid--3"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+        >
+          {services.map((s) => {
+            const Icon = serviceIcons[s.id];
+            return (
+              <Card key={s.id} title={s.title} text={s.description}>
+                <div className="service-card">
+                  <span className="service-card__icon">
+                    {Icon ? <Icon size={40} strokeWidth={1.5} /> : s.icon}
+                  </span>
+                </div>
+              </Card>
+            );
+          })}
+        </motion.div>
       </Section>
       <Section id="faq" title="Preguntas frecuentes">
         <Accordion items={faqs} />
@@ -84,10 +115,16 @@ export default function Home() {
             <p>
               <strong>{site.clientName}</strong>
             </p>
-            <p>📞 {formatPhone(contact.phone)}</p>
-            <p>✉️ {contact.email}</p>
-            <p>📍 {contact.address}</p>
-            <p style={{ color: "var(--color-muted)", marginTop: 12 }}>
+            <p>
+              <Phone size={16} /> {formatPhone(contact.phone)}
+            </p>
+            <p>
+              <Mail size={16} /> {contact.email}
+            </p>
+            <p>
+              <MapPin size={16} /> {contact.address}
+            </p>
+            <p style={{ color: "var(--text-muted)", marginTop: 12 }}>
               Atención y presupuestos únicamente por WhatsApp. Respondemos a la
               brevedad.
             </p>
@@ -100,6 +137,7 @@ export default function Home() {
             }}
           >
             <Button variant="accent" href={`https://wa.me/${contact.whatsapp}`}>
+              <MessageCircle size={18} />
               Contactar por WhatsApp
             </Button>
           </div>
