@@ -7,6 +7,7 @@ import Accordion from "../components/Accordion";
 import Testimonials from "../components/Testimonials";
 import Footer from "../components/Footer";
 import { works } from "../data/works";
+import { Link } from 'react-router-dom';
 import { services } from "../data/services";
 import { faqs } from "../data/faqs";
 import { testimonials } from "../data/testimonials";
@@ -70,16 +71,28 @@ export default function Home() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
         >
-          {works.map((w) => (
-            <Card
-              key={w.id}
-              title={w.title}
-              text={w.description}
-              image={w.image}
-              meta={`${w.category} · ${w.date}`}
-            />
-          ))}
+          {works
+            .filter((w) => w.featured)
+            .map((w) => (
+              <Link
+                key={w.id}
+                to={`/obras?id=${w.id}`}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <Card
+                  title={w.title}
+                  text={w.shortDescription}
+                  image={w.coverImage}
+                  meta={`${w.category} · ${w.year}`}
+                />
+              </Link>
+            ))}
         </motion.div>
+        <div style={{ textAlign: 'center', marginTop: 32 }}>
+          <Link to="/obras" className="btn btn--secondary">
+            Ver todas las obras en la Galería
+          </Link>
+        </div>
       </Section>
       <Section id="servicios" title="Servicios" subtitle="Lo que ofrecemos">
         <motion.div
