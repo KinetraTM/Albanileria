@@ -2,11 +2,15 @@ import { motion } from 'motion/react';
 import { staggerItem } from '../util/motion';
 import '../style/UI/components.css';
 
-export default function Card({ title, text, image, meta, children }) {
+export default function Card({ title, text, image, meta, children, variants = staggerItem, initial, animate, whileInView, viewport }) {
   return (
     <motion.article
       className="card"
-      variants={staggerItem}
+      variants={variants}
+      initial={initial}
+      animate={animate}
+      whileInView={whileInView}
+      viewport={viewport}
       whileHover={{ y: -8, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
     >
       {image && (
