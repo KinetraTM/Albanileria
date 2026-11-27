@@ -359,6 +359,7 @@
   color: var(--accent-primary);
   font-weight: 700;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 .header__stat-label {
   font-size: 0.78rem;
@@ -415,6 +416,11 @@
     filter var(--dur-base) var(--ease),
     color var(--dur-base) var(--ease);
   filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.25));
+  animation: pulseIcon 2.8s ease-in-out infinite;
+}
+@keyframes pulseIcon {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.25)); }
+  50% { filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.55)); }
 }
 .card:hover .service-card__icon {
   transform: scale(1.15) rotate(-4deg);

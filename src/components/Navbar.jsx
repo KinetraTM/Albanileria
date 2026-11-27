@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { scrollToSection } from "../util/scroll";
+import SplitTextReveal from "../components/SplitTextReveal";
 import "../style/UI/components.css";
 
 export default function Navbar() {
@@ -24,7 +25,9 @@ export default function Navbar() {
               marginRight: 8,
             }}
           />
-          Gustavo Burique
+          <SplitTextReveal unit="chars" duration={900} trigger="load">
+            Gustavo Burique
+          </SplitTextReveal>
         </span>
         <button
           className="navbar__toggle"

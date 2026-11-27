@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { staggerItem } from '../util/motion';
+import SplitTextReveal from './SplitTextReveal';
 import '../style/UI/components.css';
 
 export default function Card({ title, text, image, meta, children }) {
@@ -14,7 +15,11 @@ export default function Card({ title, text, image, meta, children }) {
           <img className="card__img" src={image} alt={title} loading="lazy" />
         </div>
       )}
-      {title && <h3 className="card__title">{title}</h3>}
+      {title && (
+        <SplitTextReveal as="h3" className="card__title" unit="chars" duration={700} trigger="view">
+          {title}
+        </SplitTextReveal>
+      )}
       {text && <p className="card__text">{text}</p>}
       {meta && <p className="card__meta">{meta}</p>}
       {children}
